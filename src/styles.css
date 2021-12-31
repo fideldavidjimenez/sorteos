@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  /*background-color: #696e6e !important;*/
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@font-face {
+  font-family: "StencilFont";
+  src: url("assets/fonts/stencil.ttf");
+}
+
+.titulo1 {
+  font-size: 20px;
+  margin: 10px 10px;
+}
+
+.header {
+  color: rgba(232,190,106,0.92);
+}

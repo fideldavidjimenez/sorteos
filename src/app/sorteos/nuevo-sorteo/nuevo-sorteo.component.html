@@ -1,0 +1,108 @@
+<div style="margin: 20px 10px">
+  <mat-stepper linear #stepper color="accent">
+    <mat-step [stepControl]="formGroup" [editable]="false">
+      <form [formGroup]="formGroup" class="form">
+        <ng-template matStepLabel>{{constantesService.labels.nSorteo}}</ng-template>
+
+        <mat-form-field class="control inputNumber" appearance="fill" color="accent">
+          <mat-label>{{constantesService.labels.nInicial}}</mat-label>
+          <input matInput type="number" [formControl]="nInicial" maxlength="3" required>
+          <mat-error *ngIf="nInicial.hasError('max') && !nInicial.hasError('required')">
+            {{constantesService.mensajes.max}}
+          </mat-error>
+          <mat-error *ngIf="nInicial.hasError('required')">
+            {{constantesService.mensajes.req}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="control inputNumber" appearance="fill" color="accent">
+          <mat-label>{{constantesService.labels.nFinal}}</mat-label>
+          <input matInput type="number" [formControl]="nFinal" maxlength="3" required>
+          <mat-error *ngIf="nFinal.hasError('max') && !nFinal.hasError('required')">
+            {{constantesService.mensajes.max}}
+          </mat-error>
+          <mat-error *ngIf="nFinal.hasError('required')">
+            {{constantesService.mensajes.req}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="control" appearance="fill" color="accent">
+          <mat-label>{{constantesService.labels.desc}}</mat-label>
+          <textarea matInput [formControl]="descripcion"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button (click)="crear()" style="margin: auto 10px" color="accent"
+                [disabled]="formGroup.invalid" matStepperNext>{{constantesService.labels.ok}}</button>
+        <button mat-raised-button style="margin: auto 10px" color="basic" type="reset">{{constantesService.labels.cancel}}</button>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>{{constantesService.labels.jugar}}</ng-template>
+      <div class="grid" style="width: 100%; height: 700px">
+        <div style="overflow: auto; max-width: 400px; background-image: none !important;">
+          <div>
+            <p>Sorteo N°: {{sorteo.id_sorteo}}</p>
+            <p>Número inicial: <span class="H2">{{sorteo.n_inicial}}</span></p>
+            <p>Número final: <span class="H2">{{sorteo.n_final}}</span></p>
+
+            <mat-form-field style="width: 200px" appearance="fill" color="accent">
+              <mat-label>{{constantesService.labels.premio}}</mat-label>
+              <input matInput type="number" [formControl]="premio" required>
+              <mat-error *ngIf="premio.invalid || premio.hasError('required') || premio.hasError('min')">
+                {{constantesService.mensajes.req}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div style="margin: 20px auto 25px auto;">
+            <button mat-raised-button color="accent" (click)="openDialog()" style="margin: auto 10px"
+                    [disabled]="jugando || premio.invalid">{{constantesService.labels.jugar}}</button>
+
+            <button mat-raised-button color="basic" (click)="abrirPagarDialog()" style="margin: auto 10px"
+                    [disabled]="resultado < 0 || jugando">{{constantesService.labels.pagar}}</button>
+
+            <button mat-raised-button color="warn" (click)="stepper.reset(); reset();"
+                    [disabled]="jugando">{{constantesService.labels.tSorteo}}</button>
+          </div>
+
+          <table mat-table matSort [dataSource]="dataJugadas" class="mat-elevation-z8" *ngIf="sorteo && dataJugadas" style="width: 100%">
+            <!-- Position Column -->
+            <ng-container matColumnDef="n_jugado">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef class="header"> N jugado</th>
+              <td mat-cell *matCellDef="let element" style="font-size: 20px"> {{element.n_jugado}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="valor_pagado">
+              <th mat-header-cell *matHeaderCellDef class="header"> Valor Pagado</th>
+              <td mat-cell *matCellDef="let element"> {{element.valor_pagado | currency : '': 'symbol':'1.0'}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="fecha">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef class="header"> Fecha</th>
+              <td mat-cell *matCellDef="let element">{{element.fecha | date:'HH:mm:ss yyyy-MM-dd'}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+
+          </table>
+        </div>
+        <div style="background-image: url('assets/images/background5.jpg'); background-repeat: round; display: flex; justify-content: center">
+          <div class="grid2">
+            <img src="assets/images/slots.png" class="item-fondo" height="100%" width="100%">
+            <div class="item item-d2 {{digito2 == 0 ? 'verde' : digito2 % 2 == 0 ? 'negro' : 'rojo'}}">
+              <span class="digito">{{resultado < 0 ? '' : digito2}}</span>
+            </div>
+            <div class="item item-d1 {{digito1 == 0 ? 'verde' : digito1 % 2 == 0 ? 'negro' : 'rojo'}}">
+              <span class="digito">{{resultado < 0 ? '' : digito1}}</span>
+            </div>
+            <div class="item item-d0 {{digito0 == 0 ? 'verde' : digito0 % 2 == 0 ? 'negro' : 'rojo'}}">
+              <span class="digito">{{resultado < 0 ? '' : digito0}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </mat-step>
+  </mat-stepper>
+</div>

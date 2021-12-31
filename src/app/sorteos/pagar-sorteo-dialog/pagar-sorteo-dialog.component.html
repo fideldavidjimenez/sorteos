@@ -1,0 +1,43 @@
+<div mat-dialog-close class="dialog-close">
+  <mat-icon>
+    close
+  </mat-icon>
+</div>
+
+<h1 mat-dialog-title>{{constantesService.labels.pagar}}</h1>
+
+<div mat-dialog-content>
+
+  <mat-form-field class="control" appearance="fill" color="accent">
+    <mat-label>{{constantesService.labels.nGanador}}</mat-label>
+    <input matInput type="text" [formControl]="nombreGanador">
+    <mat-error *ngIf="nombreGanador.invalid || nombreGanador.hasError('required') || nombreGanador.hasError('min')">
+      {{constantesService.mensajes.req}}
+    </mat-error>
+  </mat-form-field>
+
+  <div class="control">
+    <p>Premio: </p>
+    <h1>{{data | currency : '': 'symbol':'1.0'}}</h1>
+  </div>
+
+  <mat-form-field class="control inputNumber" appearance="fill" color="accent">
+    <mat-label>{{constantesService.labels.vPagado}}</mat-label>
+    <input matInput type="number" [formControl]="valorPagado" required>
+    <mat-error *ngIf="valorPagado.invalid || valorPagado.hasError('required') || valorPagado.hasError('min')">
+      {{constantesService.mensajes.req}}
+    </mat-error>
+  </mat-form-field>
+
+  <div class="control">
+    <p>Confirmación Valor Pagado: </p>
+    <h1 *ngIf="valorPagado.valid">{{valorPagado.value | currency : '': 'symbol':'1.0'}}</h1>
+  </div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="pagar()" style="margin: auto 10px" color="accent"
+          [disabled]="valorPagado.invalid">{{constantesService.labels.pagar}}</button>
+
+  <button mat-raised-button mat-dialog-close (click)="cancelarPagar()" style="margin: auto 10px" color="basic">{{constantesService.labels.cancel}}</button>
+</div>

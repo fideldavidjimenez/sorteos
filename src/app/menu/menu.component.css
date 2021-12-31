@@ -1,0 +1,13 @@
+.nav-class {
+  font-family: StencilFont;
+  font-size: 70px;
+  background-color: #4a4c50;
+  padding-bottom: 5px;
+}
+button {
+  margin: 2px 5px;
+}
+
+.mat-menu-panel {
+  overflow: hidden;
+}

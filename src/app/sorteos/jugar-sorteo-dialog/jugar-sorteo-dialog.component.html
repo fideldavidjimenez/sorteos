@@ -1,0 +1,18 @@
+<div mat-dialog-close class="dialog-close">
+  <mat-icon>
+    close
+  </mat-icon>
+</div>
+
+<h1 mat-dialog-title>{{constantesService.labels.jugar}}</h1>
+
+<div mat-dialog-content>
+  <div class="control inputNumber">
+    <p>Confirmación Valor Premio: </p>
+    <h1 *ngIf="premio.valid">{{data | currency : '': 'symbol':'1.0'}}</h1>
+  </div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="jugar()" style="margin: auto 10px" color="accent">{{constantesService.labels.ok}}</button>
+</div>

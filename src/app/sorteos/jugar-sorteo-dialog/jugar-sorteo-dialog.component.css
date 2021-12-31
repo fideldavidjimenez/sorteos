@@ -1,0 +1,80 @@
+.form {
+  min-width: 300px;
+  max-width: 300px;
+  /*width: 100%;*/
+}
+
+.control {
+  width: 100%;
+  margin: 15px 5px;
+}
+
+.inputNumber {
+  /*width: 300px;*/
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 350px auto;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 17% 17.6% 5.4% 17.1% 5.3% 17.2% auto;
+  grid-template-rows: 30.89% 35.17% auto;
+  height: 80%;
+  width: 75%;
+  min-width: 730px;
+}
+
+.item-fondo {
+  grid-column-start: 1;
+  grid-column-end: end;
+  grid-row-start: 1;
+  grid-row-end: last-line;
+}
+
+.item-d0 {
+  grid-column: 6;
+  grid-row: 2;
+}
+
+.item-d1 {
+  grid-column: 4;
+  grid-row: 2;
+}
+
+.item-d2 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.item {
+
+  border-radius: 8px;
+  font-family: StencilFont;
+  font-size: 1966%;
+  text-align: center;
+}
+
+.rojo {
+  background-color: rgba(199, 5, 0, 0.92);
+}
+
+.negro {
+  background-color: #303030;
+}
+
+.verde {
+  background-color: rgba(5, 118, 2, 0.92);
+}
+
+.digito {
+  top: 35%;
+  position: relative;
+}
+
+.dialog-close {
+  float: right;
+  cursor: pointer;
+}
